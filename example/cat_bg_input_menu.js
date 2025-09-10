@@ -2,7 +2,7 @@
 // @name         bg cat input menu
 // @namespace    https://bbs.tampermonkey.net.cn/
 // @version      0.1.0
-// @description  在后台脚本中带交互输入的快捷菜单
+// @description  A shortcut menu with interactive input in the background script
 // @author       You
 // @background
 // @grant        CAT_registerMenuInput
@@ -12,7 +12,7 @@
 
 return new Promise((resolve) => {
   const id = CAT_registerMenuInput(
-    "测试菜单",
+    "Test Menu",
     () => {
       console.log(id);
       CAT_unregisterMenuInput(id);
@@ -21,51 +21,51 @@ return new Promise((resolve) => {
   );
 
   CAT_registerMenuInput(
-    "测试菜单boolean",
+    "Test Menu boolean",
     (inputValue) => {
       GM_notification({
-        title: "测试菜单boolean",
+        title: "Test Menu boolean",
         text: "" + inputValue,
       });
     },
     {
       inputType: "boolean",
-      inputLabel: "是否通知",
+      inputLabel: "Notify?",
       inputDefaultValue: true,
       autoClose: false,
     }
   );
 
   CAT_registerMenuInput(
-    "测试菜单text",
+    "Test Menu text",
     (inputValue) => {
       GM_notification({
-        title: "测试菜单text",
+        title: "Test Menu text",
         text: "" + inputValue,
       });
     },
     {
       inputType: "text",
-      inputLabel: "通知内容",
+      inputLabel: "Notification content",
       inputValue: "text",
       autoClose: false,
     }
   );
 
   CAT_registerMenuInput(
-    "测试菜单number",
+    "Test Menu number",
     (inputValue) => {
       setTimeout(() => {
         GM_notification({
-          title: "测试菜单number",
+          title: "Test Menu number",
           text: "" + (1000 + inputValue),
         });
       }, 1000 + inputValue);
     },
     {
       inputType: "number",
-      inputLabel: "延迟ms",
-      inputPlaceholder: "最低1000ms",
+      inputLabel: "Delay ms",
+      inputPlaceholder: "Minimum 1000ms",
     }
   );
 

@@ -1,8 +1,8 @@
 // ==UserScript==
-// @name         gm value storage 设置方 - 定时脚本
+// @name         gm value storage setter - scheduled script
 // @namespace    https://bbs.tampermonkey.net.cn/
 // @version      0.1.0
-// @description  多个脚本之间共享数据 设置方 - 定时脚本
+// @description  Share data between multiple scripts, setter - scheduled script
 // @author       You
 // @run-at document-start
 // @grant GM_setValue

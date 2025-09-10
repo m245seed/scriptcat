@@ -2,7 +2,7 @@
 // @name         gm xhr
 // @namespace    https://bbs.tampermonkey.net.cn/
 // @version      0.1.0
-// @description  无视浏览器的cors的跨域请求,可以设置各种unsafeHeader与cookie,需要使用@connect获取权限,或者由用户确认
+// @description  Ignore the browser's cors cross-domain request, you can set various unsafeHeaders and cookies, you need to use @connect to obtain permissions, or confirm by the user
 // @author       You
 // @grant        GM_xmlhttpRequest
 // @match        https://bbs.tampermonkey.net.cn/
@@ -30,7 +30,7 @@ GM_xmlhttpRequest({
   headers: {
     referer: "http://www.example.com/",
     origin: "www.example.com",
-    // 为空将不会发送此header
+    // If it is empty, this header will not be sent
     "sec-ch-ua-mobile": "",
   },
   onload(resp) {

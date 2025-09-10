@@ -1,8 +1,8 @@
 // ==UserScript==
-// @name         gm value storage 读取与监听方
+// @name         gm value storage reader and listener
 // @namespace    https://bbs.tampermonkey.net.cn/
 // @version      0.1.0
-// @description  多个脚本之间共享数据 读取与监听方
+// @description  Share data between multiple scripts, reader and listener
 // @author       You
 // @match https://bbs.tampermonkey.net.cn/
 // @run-at document-start

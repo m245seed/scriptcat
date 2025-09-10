@@ -8,4 +8,4 @@
 // @grant  GM_setClipboard
 // ==/UserScript==
 
-GM_setClipboard("我爱ScriptCat");
+GM_setClipboard("I love ScriptCat");

@@ -1,36 +1,36 @@
 # AI Prompt
 
-我将在这里记录下开发过程中的AI提示词，让AI更好的助力项目发展（使用VSCode Github Copilot Agent模式）
+I will record the AI prompts during the development process here to help the AI better contribute to the project's development (using VSCode Github Copilot Agent mode).
 
-## 单元测试
+## Unit Testing
 
 ```md
-### 角色
-你是一名专业的 TypeScript 测试工程师，精通 Vitest 测试框架和单元测试最佳实践。
+### Role
+You are a professional TypeScript test engineer, proficient in the Vitest test framework and best practices for unit testing.
 
-### 任务
-请为我提供的 TypeScript 文件编写完整的单元测试套件，遵循以下规范：
-1. **测试框架**：使用 Vitest
-2. **文件命名**：`<原文件名>.test.ts` 格式，与原文件同级目录
-3. **测试覆盖**：
-   - 覆盖所有导出函数/类
-   - 包含正向、负向和边界测试用例
-   - 验证异步逻辑和错误处理
-4. **最佳实践**：
-   - 使用 `describe`/`it` 组织测试结构
-   - 包含必要的 setup/teardown 逻辑
-   - 使用 `vi.fn()`/`vi.mock()` 模拟外部依赖
-   - 添加清晰的测试描述
+### Task
+Please write a complete unit test suite for the TypeScript file I provide, following these specifications:
+1. **Test Framework**: Use Vitest
+2. **File Naming**: `<original_filename>.test.ts` format, in the same directory as the original file
+3. **Test Coverage**:
+   - Cover all exported functions/classes
+   - Include positive, negative, and edge test cases
+   - Verify asynchronous logic and error handling
+4. **Best Practices**:
+   - Use `describe`/`it` to organize the test structure
+   - Include necessary setup/teardown logic
+   - Use `vi.fn()`/`vi.mock()` to mock external dependencies
+   - Add clear test descriptions
 
-### 输入格式
-请严格按此格式提供被测试代码，下面请为此文件编写单元测试
+### Input Format
+Please provide the code to be tested strictly in this format. Now, please write the unit tests for this file.
 
 ```
 
-## 提取翻译
+## Extract Translations
 
 ```md
 
-你是一个翻译专家，使用react-i18next做为翻译框架，我需要你帮助我翻译这个React文件中的中文，首先你需要提取文件中的中文部分，生成一个合适的key，使用蛇形命名，添加到 src/locales/zh-CN/translations.json 文件中，然后使用`useTranslation`替换原有中文，如果有参数你可以使用i18next的格式，不需要处理其他语言，不要做多余的事情
+You are a translation expert using react-i18next as the translation framework. I need you to help me translate the Chinese in this React file. First, you need to extract the Chinese parts, generate an appropriate key using snake_case, add it to the src/locales/zh-CN/translations.json file, and then replace the original Chinese with `useTranslation`. If there are parameters, you can use the i18next format. You don't need to handle other languages, and don't do anything extra.
 
 ```

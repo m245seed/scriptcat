@@ -2,7 +2,7 @@
 // @name         bg gm menu
 // @namespace    https://bbs.tampermonkey.net.cn/
 // @version      0.1.0
-// @description  在后台脚本中使用菜单
+// @description  Use menus in background scripts
 // @author       You
 // @background
 // @grant        GM_registerMenuCommand
@@ -10,7 +10,7 @@
 // ==/UserScript==
 
 return new Promise((resolve) => {
-  const id = GM_registerMenuCommand("测试菜单", () => {
+  const id = GM_registerMenuCommand("Test Menu", () => {
     console.log(id);
     GM_unregisterMenuCommand(id);
     resolve();

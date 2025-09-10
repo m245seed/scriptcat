@@ -27,7 +27,7 @@ export function initTestEnv() {
     blob.arrayBuffer = () => {
       return new Promise<ArrayBuffer>((resolve) => {
         const str = data[0];
-        const buf = new ArrayBuffer(str.length * 2); // 每个字符占用2个字节
+        const buf = new ArrayBuffer(str.length * 2); // Each character occupies 2 bytes
         const bufView = new Uint16Array(buf);
         for (let i = 0, strLen = str.length; i < strLen; i += 1) {
           bufView[i] = str.charCodeAt(i);

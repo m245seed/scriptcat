@@ -1,8 +1,8 @@
 // ==UserScript==
-// @name         GM cookie操作
+// @name         GM cookie operation
 // @namespace    https://bbs.tampermonkey.net.cn/
 // @version      0.1.0
-// @description  可以控制浏览器的cookie, 必须指定@connect, 并且每次一个新的域调用都需要用户确定
+// @description  Can control the browser's cookie, you must specify @connect, and each new domain call requires user confirmation
 // @author       You
 // @match        https://bbs.tampermonkey.net.cn/
 // @grant        GM_cookie

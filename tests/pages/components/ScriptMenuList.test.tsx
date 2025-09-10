@@ -9,7 +9,7 @@ const MockScriptMenuList = ({ scripts, onScriptToggle }: any) => (
       <div key={index} data-testid={`script-item-${script.id}`}>
         <span>{script.name}</span>
         <button data-testid={`toggle-${script.id}`} onClick={() => onScriptToggle?.(script)}>
-          {script.enabled ? "禁用" : "启用"}
+          {script.enabled ? "Disable" : "Enable"}
         </button>
       </div>
     ))}
@@ -59,8 +59,8 @@ describe("ScriptMenuList Component Mock Test", () => {
 
     render(<MockScriptMenuList scripts={[enabledScript, disabledScript]} />);
 
-    expect(screen.getByText("禁用")).toBeInTheDocument(); // 启用的脚本显示禁用按钮
-    expect(screen.getByText("启用")).toBeInTheDocument(); // 禁用的脚本显示启用按钮
+    expect(screen.getByText("Disable")).toBeInTheDocument(); // Enabled scripts show the disable button
+    expect(screen.getByText("Enable")).toBeInTheDocument(); // Disabled scripts show the enable button
   });
 
   it("should handle empty script list", async () => {

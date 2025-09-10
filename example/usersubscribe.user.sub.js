@@ -1,6 +1,6 @@
 // ==UserSubscribe==
-// @name         订阅脚本
-// @description  可以通过指定脚本url订阅一系列的脚本
+// @name         Subscribe to scripts
+// @description  You can subscribe to a series of scripts by specifying the script url
 // @version      1.0.0
 // @author       You
 // @connect      www.baidu.com

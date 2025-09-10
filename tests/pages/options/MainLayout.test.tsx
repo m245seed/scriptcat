@@ -61,7 +61,7 @@ describe("Options MainLayout Component", () => {
       </MainLayout>
     );
 
-    // 布局应该成功渲染
+    // Layout should render successfully
     expect(document.body).toBeInTheDocument();
   });
 
@@ -85,7 +85,7 @@ describe("Options MainLayout Component", () => {
       </MainLayout>
     );
 
-    // 验证组件正确接受pageName属性
+    // Verify that the component correctly accepts the pageName property
     expect(screen.getByText("Content")).toBeInTheDocument();
   });
 

@@ -80,15 +80,19 @@ vi.mock("../store/global", () => ({
 }));
 
 // Mock utils
-vi.mock("@App/pkg/utils/utils", () => ({
-  isUserScriptsAvailable: vi.fn(() => true),
-  getBrowserType: vi.fn(() => "chrome"),
-  BrowserType: {
-    Chrome: "chrome",
-    Firefox: "firefox",
-    Edge: "edge",
-  },
-}));
+vi.mock("@App/pkg/utils/utils", async (importOriginal) => {
+  const actual = await importOriginal<typeof import("@App/pkg/utils/utils")>();
+  return {
+    ...actual,
+    isUserScriptsAvailable: vi.fn(() => true),
+    getBrowserType: vi.fn(() => "chrome"),
+    getCurrentTab: vi.fn().mockResolvedValue({
+      id: 1,
+      url: "https://example.com",
+      title: "Test Page",
+    }),
+  };
+});
 
 // Mock localePath
 vi.mock("@App/locales/locales", () => ({
@@ -137,7 +141,7 @@ describe("Popup App Component", () => {
   it("should render popup app successfully", async () => {
     render(<App />);
 
-    // 应用应该成功渲染
+    // The app should render successfully
     expect(document.body).toBeInTheDocument();
   });
 
@@ -145,7 +149,7 @@ describe("Popup App Component", () => {
     render(<App />);
 
     await waitFor(() => {
-      // 检查是否有ScriptCat标题
+      // Check if there is a ScriptCat title
       expect(screen.getByText("ScriptCat")).toBeInTheDocument();
     });
   });
@@ -153,14 +157,14 @@ describe("Popup App Component", () => {
   // it("should handle chrome extension calls", async () => {
   //   render(<App />);
 
-  //   // 验证初始化时调用了必要的API
+  //   // Verify that the necessary APIs are called during initialization
   //   await waitFor(() => {
   //     expect(chrome.tabs.query).toHaveBeenCalled();
   //   });
   // });
 
   it("should display scripts in the menu list", async () => {
-    // 确保URL被正确设置以避免ScriptMenuList中的URL错误
+    // Ensure the URL is set correctly to avoid URL errors in ScriptMenuList
     vi.spyOn(chrome.tabs, "query").mockImplementation((query, callback) => {
       const mockTabs = [
         {
@@ -178,10 +182,10 @@ describe("Popup App Component", () => {
 
     render(<App />);
 
-    // 等待组件渲染完成，但不期望特定的脚本名称出现
+    // Wait for the component to render, but do not expect specific script names to appear
     await waitFor(
       () => {
-        // 检查是否存在折叠面板结构
+        // Check if the collapse panel structure exists
         expect(screen.getByText("current_page_scripts")).toBeInTheDocument();
         expect(screen.getByText("enabled_background_scripts")).toBeInTheDocument();
       },
@@ -192,7 +196,7 @@ describe("Popup App Component", () => {
   it("should handle popup client initialization", async () => {
     render(<App />);
 
-    // 验证chrome tabs API被调用
+    // Verify that the chrome tabs API is called
     // await waitFor(
     //   () => {
     //     expect(chrome.tabs.query).toHaveBeenCalled();
@@ -200,7 +204,7 @@ describe("Popup App Component", () => {
     //   { timeout: 1000 }
     // );
 
-    // 验证UI渲染正常，说明组件初始化成功
+    // Verify that the UI renders normally, indicating successful component initialization
     await waitFor(
       () => {
         expect(screen.getByText("ScriptCat")).toBeInTheDocument();

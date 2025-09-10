@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         在本地文件中运行
+// @name         Run in local file
 // @namespace    https://bbs.tampermonkey.net.cn/
 // @version      0.1.0
 // @description  try to take over the world!

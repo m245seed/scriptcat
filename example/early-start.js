@@ -2,7 +2,7 @@
 // @name         early start script
 // @namespace    https://bbs.tampermonkey.net.cn/
 // @version      0.1.0
-// @description  使用 early-start 可以比网页更快的加载脚本进行执行，但是会存在一些性能问题与GM API使用限制
+// @description  Using early-start can load scripts faster than the webpage, but there will be some performance issues and GM API usage restrictions
 // @author       You
 // @run-at       document-start
 // @grant        GM_getValue
@@ -12,9 +12,9 @@
 // @match        http://test-case.ggnb.top/is_trusted/is_trusted.html
 // ==/UserScript==
 
-console.log("early-start 获取值", GM_getValue("test"));
+console.log("early-start get value", GM_getValue("test"));
 
-console.log("early-start 设置值", GM_setValue("test", Math.random()));
+console.log("early-start set value", GM_setValue("test", Math.random()));
 
 const realAdd = document.addEventListener;
 document.addEventListener = function (type, fuc) {
@@ -34,5 +34,5 @@ unsafeWindow.onload = () => {
 };
 
 CAT_scriptLoaded().then(() => {
-  console.log("脚本完全加载完成");
+  console.log("Script fully loaded");
 });

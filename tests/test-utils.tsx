@@ -19,7 +19,7 @@ afterEach(() => {
   cleanup();
 });
 
-// 创建一个基础的mock store
+// Create a basic mock store
 const createMockStore = (initialState = {}) => {
   return configureStore({
     reducer: {
@@ -30,7 +30,7 @@ const createMockStore = (initialState = {}) => {
   });
 };
 
-// 自定义render函数，包装Redux Provider
+// Custom render function, wraps the Redux Provider
 const customRender = (
   ui: ReactElement,
   {
@@ -48,7 +48,7 @@ const customRender = (
 
 // Setup global mocks
 export const setupGlobalMocks = () => {
-  // Chrome mock已经在vitest.setup.ts中通过chromeMock.init()设置了
+  // Chrome mock has already been set up in vitest.setup.ts via chromeMock.init()
 
   // Mock window.open
   Object.assign(global, {

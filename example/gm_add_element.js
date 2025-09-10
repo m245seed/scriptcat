@@ -2,7 +2,7 @@
 // @name         gm add element
 // @namespace    https://bbs.tampermonkey.net.cn/
 // @version      0.1.0
-// @description  在页面中插入元素,可以绕过CSP限制
+// @description  Insert elements into the page, which can bypass CSP restrictions
 // @author       You
 // @match        https://github.com/scriptscat/scriptcat
 // @grant        GM_addElement

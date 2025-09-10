@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         重试示例
+// @name         Retry Example
 // @namespace    https://bbs.tampermonkey.net.cn/
 // @version      0.1.0
 // @description  try to take over the world!
@@ -12,7 +12,7 @@ return new Promise((resolve, reject) => {
 	// Your code here...
 	GM_notification({
 		title: "retry",
-		text: "10秒后重试"
+		text: "Retry after 10 seconds"
 	});
-	reject(new CATRetryError("xxx错误", 10));
+	reject(new CATRetryError("xxx error", 10));
 });
