@@ -1,19 +1,19 @@
 ---
-name: "新功能请求"
-about: 期望能够增加的功能
+name: "Feature Request"
+about: Features you would like to see added
 title: "[Feature] "
 labels: "enhancement"
 assignees: ""
 ---
 
-### 功能描述
+### Feature Description
 
-请清晰描述你想要的功能：
+Please clearly describe the feature you want:
 
-### 使用场景
+### Use Case
 
-在什么情况下需要这个功能？（例如：处理特定网站时，提升操作效率等）
+In what situations is this feature needed? (e.g., when processing specific websites, improving operational efficiency, etc.)
 
-### 附加说明
+### Additional Information
 
-（可选）补充截图、示例代码或其他参考信息
+(Optional) Supplementary screenshots, sample code, or other reference information

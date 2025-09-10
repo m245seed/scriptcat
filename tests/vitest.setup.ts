@@ -51,10 +51,10 @@ if (!("onresize" in global)) {
     configurable: true,
     enumerable: true,
     set(_newVal) {
-      console.log("测试用.onresize.set");
+      console.log("For testing.onresize.set");
     },
     get() {
-      console.log("测试用.onresize.get");
+      console.log("For testing.onresize.get");
       return null;
     },
   });
@@ -69,10 +69,10 @@ if (!("onblur" in global)) {
     configurable: true,
     enumerable: true,
     set(_newVal) {
-      console.log("测试用.onblur.set");
+      console.log("For testing.onblur.set");
     },
     get() {
-      console.log("测试用.onblur.get");
+      console.log("For testing.onblur.get");
       return null;
     },
   });
@@ -87,10 +87,10 @@ if (!("onblur" in global)) {
     configurable: true,
     enumerable: true,
     set(_newVal) {
-      console.log("测试用.onfocus.set");
+      console.log("For testing.onfocus.set");
     },
     get() {
-      console.log("测试用.onfocus.get");
+      console.log("For testing.onfocus.get");
       return null;
     },
   });
@@ -98,7 +98,7 @@ if (!("onblur" in global)) {
 
 Object.assign(global, {
   setTimeoutForTest(...args: any) {
-    // 注意： function XXX (){} 会导致 Class prototype 出现
+    // Note: function XXX (){} will cause the Class prototype to appear
     //@ts-ignore
     if (typeof this === "object" && this && this !== global) throw new TypeError("Illegal invocation");
     //@ts-ignore
@@ -117,4 +117,4 @@ global.ttest1 = 1;
 global.ttest2 = 2;
 
 //@ts-ignore
-global.define = "特殊关键字不能穿透沙盒";
+global.define = "Special keywords cannot penetrate the sandbox";

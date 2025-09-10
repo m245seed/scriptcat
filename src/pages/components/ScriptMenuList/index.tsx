@@ -101,7 +101,7 @@ const MenuItem = React.memo(({ menu, uuid }: MenuItemProps) => {
 });
 MenuItem.displayName = "MenuItem";
 
-// 用于popup页的脚本操作列表
+// Script action list for popup page
 const ScriptMenuList = React.memo(
   ({ script, isBackscript, currentUrl }: { script: ScriptMenu[]; isBackscript: boolean; currentUrl: string }) => {
     const [list, setList] = useState([] as ScriptMenu[]);
@@ -113,17 +113,17 @@ const ScriptMenuList = React.memo(
 
     let url: URL;
     try {
-      // 如果currentUrl为空或无效，使用默认URL
+      // If currentUrl is empty or invalid, use the default URL
       const urlToUse = currentUrl?.trim() || "https://example.com";
       url = new URL(urlToUse);
     } catch (e: any) {
       console.error("Invalid URL:", e);
-      // 提供一个默认的URL，避免后续代码报错
+      // Provide a default URL to avoid subsequent code errors
       url = new URL("https://example.com");
     }
     useEffect(() => {
       setList(script);
-      // 注册菜单快捷键
+      // Register menu shortcuts
       const listeners: ((e: KeyboardEvent) => void)[] = [];
       script.forEach((item) => {
         item.menus.forEach((menu) => {
@@ -147,12 +147,12 @@ const ScriptMenuList = React.memo(
 
     useEffect(() => {
       let isMounted = true;
-      // 监听脚本运行状态
+      // Listen for script run status
       const unsub = messageQueue.subscribe<TScriptRunStatus>("scriptRunStatus", ({ uuid, runStatus }) => {
         if (!isMounted) return;
         setList((prevList) => prevList.map((item) => (item.uuid === uuid ? { ...item, runStatus } : item)));
       });
-      // 获取配置
+      // Get configuration
       systemConfig.getMenuExpandNum().then((num) => {
         if (!isMounted) return;
         setMenuExpandNum(num);
@@ -318,7 +318,7 @@ const ScriptMenuList = React.memo(
             </div>
           </CollapseItem>
           <div className="arco-collapse-item-content-box flex flex-col" style={{ padding: "0 0 0 40px" }}>
-            {/* 判断菜单数量，再判断是否展开 */}
+            {/* Judge the number of menus, and then judge whether to expand */}
             {visibleMenus.map((menu) => {
               return <MenuItem key={menu.id} menu={menu} uuid={item.uuid} />;
             })}

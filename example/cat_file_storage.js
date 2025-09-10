@@ -2,7 +2,7 @@
 // @name         cat file storage
 // @namespace    https://bbs.tampermonkey.net.cn/
 // @version      0.1.0
-// @description  脚本同步储存空间操作
+// @description  Script synchronization storage space operation
 // @author       You
 // @match        https://bbs.tampermonkey.net.cn/
 // @grant        CAT_fileStorage

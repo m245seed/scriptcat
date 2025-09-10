@@ -24,7 +24,7 @@ function PopupWarnings({ isBlacklist }: PopupWarningsProps) {
   }, []);
 
   const warningMessageHTML = useMemo(() => {
-    // 可使用UserScript的话，不查browserType
+    // If UserScript is available, don't check browserType
     const browserType = !isUserScriptsAvailableState ? getBrowserType() : null;
 
     const warningMessageHTML = browserType
@@ -35,7 +35,7 @@ function PopupWarnings({ isBlacklist }: PopupWarningsProps) {
             ? t("lower_version_browser_guide")
             : browserType.chrome & BrowserType.chromeC && browserType.chrome & BrowserType.Chrome
               ? t("allow_user_script_guide")
-              : t("develop_mode_guide") // Edge浏览器目前没有允许用户脚本选项，开启开发者模式即可
+              : t("develop_mode_guide") // Edge browser does not currently have an option to allow user scripts, just enable developer mode
           : "UNKNOWN"
       : "";
 
@@ -49,7 +49,7 @@ function PopupWarnings({ isBlacklist }: PopupWarningsProps) {
     );
   }, []);
 
-  // 权限要求详见：https://github.com/mdn/webextensions-examples/blob/main/userScripts-mv3/options.mjs
+  // For permission requirements, see: https://github.com/mdn/webextensions-examples/blob/main/userScripts-mv3/options.mjs
   useEffect(() => {
     //@ts-ignore
     if (chrome.permissions?.contains && chrome.permissions?.request) {
@@ -61,13 +61,13 @@ function PopupWarnings({ isBlacklist }: PopupWarningsProps) {
           const lastError = chrome.runtime.lastError;
           if (lastError) {
             console.error("chrome.runtime.lastError in chrome.permissions.contains:", lastError.message);
-            // runtime 错误的话不显示按钮
+            // Do not display the button if there is a runtime error
             return;
           }
           if (permissionOK === false) {
-            // 假设browser能支持 `chrome.permissions.contains` 及在 callback返回一个false值的话，
-            // chrome.permissions.request 应该可以执行
-            // 因此在这裡显示按钮
+            // Assuming the browser can support `chrome.permissions.contains` and return a false value in the callback,
+            // chrome.permissions.request should be executable
+            // So show the button here
             setShowRequestButton(true);
           }
         }
@@ -91,9 +91,9 @@ function PopupWarnings({ isBlacklist }: PopupWarningsProps) {
       }
       if (granted) {
         setPermissionReqResult("✅");
-        // UserScripts API相关的初始化：
-        // userScripts.LISTEN_CONNECTIONS 進行 Server 通讯初始化
-        // onUserScriptAPIGrantAdded 進行 腳本注冊
+        // UserScripts API related initialization:
+        // userScripts.LISTEN_CONNECTIONS for Server communication initialization
+        // onUserScriptAPIGrantAdded for script registration
         updateIsUserScriptsAvailableState();
       } else {
         setPermissionReqResult("❎");
@@ -134,8 +134,8 @@ function PopupWarnings({ isBlacklist }: PopupWarningsProps) {
           content={
             <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
               <div>
-                <div>{"在手机上使用脚本猫"}</div>
-                <div style={{ fontSize: "12px", marginTop: "4px" }}>{"扫描二维码在手机上安装脚本猫"}</div>
+                <div>{"Use ScriptCat on your phone"}</div>
+                <div style={{ fontSize: "12px", marginTop: "4px" }}>{"Scan the QR code to install ScriptCat on your phone"}</div>
               </div>
               <img src={edgeMobileQrCode} alt="qrcode" style={{ width: "80px", height: "80px" }} />
             </div>

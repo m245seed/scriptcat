@@ -222,7 +222,7 @@ function ScriptEditor() {
   };
 
   const save = (existingScript: Script, e: editor.IStandaloneCodeEditor): Promise<Script> => {
-    // 解析code生成新的script并更新
+    // Parse the code to generate a new script and update it
     const code = e.getValue();
     const targetUUID = existingScript.uuid;
     return prepareScriptByCode(code, existingScript.origin || "", targetUUID)
@@ -247,7 +247,7 @@ function ScriptEditor() {
           .then((update): Script => {
             if (!update) {
               Message.success(t("create_success_note"));
-              // 保存的时候如何左侧没有脚本即新建
+              // If there is no script on the left when saving, create a new one
               setScriptList((prev) => {
                 setSelectSciptButtonAndTab(script.uuid);
                 return [script, ...prev];
@@ -302,12 +302,12 @@ function ScriptEditor() {
       chrome.downloads.download(
         {
           url: URL.createObjectURL(new Blob([e.getValue()], { type: "text/javascript" })),
-          saveAs: true, // true直接弹出对话框；false弹出下载选项
+          saveAs: true, // true to pop up the dialog box directly; false to pop up the download option
           filename: `${script.name}.user.js`,
         },
         () => {
           /*
-            chrome扩展api发生错误无法通过try/catch捕获，必须在api回调函数中访问chrome.runtime.lastError进行获取
+            Chrome extension API errors cannot be caught by try/catch, and must be accessed by visiting chrome.runtime.lastError in the API callback function
             var chrome.runtime.lastError: chrome.runtime.LastError | undefined
             This will be defined during an API method callback if there was an error
           */
@@ -352,9 +352,9 @@ function ScriptEditor() {
           hotKeyString: "Ctrl+F5",
           tooltip: t("only_background_scheduled_can_run"),
           action: async (script, e) => {
-            // 保存更新代码之后再调试
+            // Save and update the code before debugging
             const newScript = await save(script, e);
-            // 判断脚本类型
+            // Determine the script type
             if (newScript.type === SCRIPT_TYPE_NORMAL) {
               Message.error(t("only_background_scheduled_can_run"));
               return;
@@ -418,7 +418,7 @@ function ScriptEditor() {
     },
   ];
 
-  // 根据菜单生产快捷键
+  // Generate shortcut keys based on the menu
   const hotKeys: HotKey[] = [];
   let activeTab = "";
   for (let i = 0; i < editors.length; i += 1) {
@@ -455,7 +455,7 @@ function ScriptEditor() {
         setCanLoadScript(true);
       });
     }
-    // 恢复标题
+    // Restore title
     return () => {
       document.title = "Home - ScriptCat";
     };
@@ -474,12 +474,12 @@ function ScriptEditor() {
     newParams.set("d", `${Date.now()}`);
     setPageUrlSearchParams(newParams, { replace: true });
 
-    // 如果有id则打开对应的脚本
+    // If there is an id, open the corresponding script
     if (uuid) {
       const [scripts] = [scriptList];
       for (let i = 0; i < scripts.length; i += 1) {
         if (scripts[i].uuid === uuid) {
-          // 如果已经打开则激活
+          // If it is already open, activate it
           scriptCodeDAO.findByUUID(uuid).then((code) => {
             const uuid = scripts[i].uuid;
             setEditors((prev) => {
@@ -497,6 +497,7 @@ function ScriptEditor() {
                       }
                 );
               } else {
+                // If it is not open, open it
                 const newEditor = {
                   script: scripts[i],
                   code: code?.code || "",
@@ -530,7 +531,7 @@ function ScriptEditor() {
     }
   }, [canLoadScript, memoUrlQueryString]);
 
-  // 控制onbeforeunload
+  // Control onbeforeunload
   useEffect(() => {
     let flag = false;
 
@@ -557,17 +558,17 @@ function ScriptEditor() {
     };
   }, [editors]);
 
-  // 对tab点击右键进行的操作
+  // Operations for right-clicking on a tab
   useEffect(() => {
     let selectEditorIndex: number = 0;
-    // 1 关闭当前, 2关闭其它, 3关闭左侧, 4关闭右侧
+    // 1 Close current, 2 Close others, 3 Close left, 4 Close right
     if (rightOperationTab) {
       switch (rightOperationTab.key) {
         case "1":
           setEditors((prev) => {
             prev = prev.filter((item) => item.script.uuid !== rightOperationTab.uuid);
             if (prev.length > 0) {
-              // 还有的话，如果之前有选中的，那么我们还是选中之前的，如果没有选中的我们就选中第一个
+              // If there are still some, if there was a previous selection, we still select the previous one, if there is no selection, we select the first one
               if (rightOperationTab.selectSciptButtonAndTab === rightOperationTab.uuid) {
                 prev[0] = {
                   ...prev[0],
@@ -579,7 +580,7 @@ function ScriptEditor() {
               } else {
                 const prevTabUUID = rightOperationTab.selectSciptButtonAndTab;
                 setSelectSciptButtonAndTab(prevTabUUID);
-                // 之前选中的tab
+                // Previously selected tab
                 return prev.map((item) =>
                   item.script.uuid === prevTabUUID
                     ? {
@@ -626,7 +627,7 @@ function ScriptEditor() {
     }
   }, [rightOperationTab]);
 
-  // 通用的编辑器删除处理函数
+  // General editor deletion processing function
   const handleDeleteEditor = (targetUuid: string, needConfirm: boolean = false) => {
     setEditors((prev) => {
       const targetIndex = prev.findIndex((e) => e.script.uuid === targetUuid);
@@ -634,14 +635,14 @@ function ScriptEditor() {
 
       const targetEditor = prev[targetIndex];
 
-      // 如果需要确认且脚本已修改
+      // If confirmation is required and the script has been modified
       if (needConfirm && targetEditor.isChanged) {
         if (!confirm(t("script_modified_close_confirm"))) {
           return prev;
         }
       }
 
-      // 如果只剩一个编辑器，打开空白脚本
+      // If there is only one editor left, open a blank script
       if (prev.length === 1) {
         const template = pageUrlSearchParams.get("template") || "";
         emptyScript(template || "", hotKeys, "blank").then((e) => {
@@ -651,17 +652,17 @@ function ScriptEditor() {
         return prev;
       }
 
-      // 删除目标编辑器
+      // Delete the target editor
       prev = prev.filter((_, index) => index !== targetIndex);
 
-      // 如果删除的是当前激活的编辑器，需要激活其他编辑器
+      // If the currently active editor is deleted, other editors need to be activated
       if (targetEditor.active && prev.length > 0) {
         let nextActiveIndex;
         if (targetIndex >= prev.length) {
-          // 如果删除的是最后一个，激活前一个
+          // If the last one is deleted, activate the previous one
           nextActiveIndex = prev.length - 1;
         } else {
-          // 否则激活下一个（原来的下一个现在在同样的位置）
+          // Otherwise, activate the next one (the original next one is now in the same position)
           nextActiveIndex = targetIndex;
         }
         prev[nextActiveIndex].active = true;
@@ -672,7 +673,7 @@ function ScriptEditor() {
     });
   };
 
-  // 处理编辑器激活状态变化时的focus
+  // Handle focus when editor activation state changes
   useEffect(() => {
     editors.forEach((item) => {
       if (item.active && item.editor) {
@@ -681,7 +682,7 @@ function ScriptEditor() {
         }, 100);
       }
     });
-  }, [activeTab]); // 只在activeTab变化时执行
+  }, [activeTab]); // Only execute when activeTab changes
 
   return (
     <div

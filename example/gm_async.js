@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         异步GM函数
+// @name         Async GM function
 // @namespace    https://bbs.tampermonkey.net.cn/
 // @version      0.1.0
 // @description  try to take over the world!

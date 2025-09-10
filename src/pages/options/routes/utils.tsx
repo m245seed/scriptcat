@@ -4,10 +4,10 @@ import { Avatar, Button, Space, Tooltip } from "@arco-design/web-react";
 import { IconBug, IconCode, IconGithub, IconHome } from "@arco-design/web-react/icon";
 import { useTranslation } from "react-i18next";
 
-// 安装url转home主页
+// Convert install URL to homepage
 export function installUrlToHome(installUrl: string) {
   try {
-    // 解析scriptcat
+    // Parse scriptcat
     if (installUrl.includes("scriptcat.org")) {
       const id = installUrl.split("/")[5];
       return (

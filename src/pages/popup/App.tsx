@@ -63,19 +63,19 @@ function App() {
         .then((resp) => {
           if (!isMounted) return;
 
-          // 确保响应有效
+          // Make sure the response is valid
           if (!resp || !resp.scriptList) {
             console.warn("Invalid popup data response:", resp);
             return;
           }
 
-          // 按照开启状态和更新时间排序
+          // Sort by enabled status and update time
           const list = resp.scriptList;
           list.sort(
             (a, b) =>
               //@ts-ignore
               b.enable - a.enable ||
-              // 根据菜单数排序
+              // Sort by number of menus
               b.menus.length - a.menus.length ||
               b.runNum - a.runNum ||
               b.updatetime - a.updatetime
@@ -88,7 +88,7 @@ function App() {
         .catch((error) => {
           console.error("Failed to get popup data:", error);
           if (!isMounted) return;
-          // 设置默认值以防止错误
+          // Set default values to prevent errors
           setScriptList([]);
           setBackScriptList([]);
           setIsBlacklist(false);
@@ -105,7 +105,7 @@ function App() {
       setCheckUpdate(checkUpdate);
     };
     const queryTabInfo = async () => {
-      // 只跑一次 tab 资讯，不绑定在 currentUrl
+      // Only run tab info once, not bound to currentUrl
       try {
         const tab = await getCurrentTab();
         if (!isMounted || !tab) return;
@@ -135,7 +135,7 @@ function App() {
   }, []);
 
   const handleSettingsClick = useCallback(() => {
-    // 用a链接的方式,vivaldi竟然会直接崩溃
+    // Using an a-link will cause Vivaldi to crash
     window.open("/src/options.html", "_blank");
   }, []);
 
@@ -193,16 +193,15 @@ function App() {
               <Dropdown
                 onVisibleChange={(visible) => {
                   if (!visible) return;
-                  // 检查位置，优化窗口过小，导致弹出菜单显示不全的问题
+                  // Check the position to optimize the problem that the pop-up menu is not fully displayed due to the small window
                   setTimeout(() => {
                     const dropdowns = document.getElementsByClassName("arco-dropdown");
                     console.log(dropdowns);
                     if (dropdowns.length > 0) {
                       const dropdown = dropdowns[0] as HTMLElement;
                       console.log(dropdowns, dropdown.style.top);
-                      // 如果top是负数修改为0
-                      if (parseInt(dropdown
-                        .style.top) < 0) {
+                      // If top is negative, change it to 0
+                      if (parseInt(dropdown.style.top) < 0) {
                         dropdown.style.top = "0px";
                       }
                     }

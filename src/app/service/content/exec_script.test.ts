@@ -221,7 +221,7 @@ describe("none this", () => {
   });
 });
 
-describe("沙盒环境测试", async () => {
+describe("Sandbox environment test", async () => {
   //@ts-ignore
   global.gbok = "gbok";
   Object.assign(global, { gbok2: "gbok2" });
@@ -419,12 +419,16 @@ describe("沙盒环境测试", async () => {
     expect(Object.prototype.hasOwnProperty.call(_this, "test")).toEqual(false);
   });
 
-  it("特殊关键字不能穿透沙盒", async () => {
-    expect(_global["define"]).toEqual("特殊关键字不能穿透沙盒");
+  it("Special keywords cannot penetrate the sandbox", async () => {
+    expect(_global["define"]).toEqual(
+      "Special keywords cannot penetrate the sandbox"
+    );
     expect(_this["define"]).toBeUndefined();
     _this["define"] = "ok";
     expect(_this["define"]).toEqual("ok");
-    expect(_global["define"]).toEqual("特殊关键字不能穿透沙盒");
+    expect(_global["define"]).toEqual(
+      "Special keywords cannot penetrate the sandbox"
+    );
   });
 
   it("RegExp", async () => {
@@ -438,7 +442,7 @@ str.match(reg);`;
     await exec.exec();
     expect(RegExp.$1).toEqual("123");
   });
-  it("沙盒之间不应该共享变量", async () => {
+  it("Sandboxes should not share variables", async () => {
     const script = Object.assign({}, scriptRes2) as ScriptLoadInfo;
     script.code = `this.testVar = "ok"; ttest1 = "ok"; return {testVar: this.testVar, testVar2: this.testVar2, ttest1: typeof ttest1, ttest2: typeof ttest2};`;
     // @ts-ignore
@@ -486,7 +490,7 @@ str.match(reg);`;
     expect(cacheRet3Onload() + ret4.onload()).toEqual(579);
   });
 
-  it("沙盒之间能用unsafeWindow（及全局作用域）共享变量", async () => {
+  it("Sandboxes can share variables using unsafeWindow (and global scope)", async () => {
     const script = Object.assign({}, scriptRes2) as ScriptLoadInfo;
     script.code = `unsafeWindow.testSVar1 = "shareA"; ggaa1 = "ok"; return {testSVar1: unsafeWindow.testSVar1, testSVar2: unsafeWindow.testSVar2, ggaa1: typeof ggaa1, ggaa2: typeof ggaa2};`;
     // @ts-ignore
@@ -504,7 +508,7 @@ str.match(reg);`;
     expect(ret2).toEqual({ testSVar1: "shareA", testSVar2: "shareB", ggaa1: "string", ggaa2: "string" });
   });
 
-  it("测试SC沙盒与TM沙盒有相近的特殊处理", async () => {
+  it("Test that SC sandbox and TM sandbox have similar special handling", async () => {
     const script1 = Object.assign({}, scriptRes2) as ScriptLoadInfo;
     script1.code = `onfocus = function(){}; onresize = 123; onblur = "123"; const ret = {onfocus, onresize, onblur}; onfocus = null; onresize = null; onblur = null; return ret;`;
     // @ts-ignore

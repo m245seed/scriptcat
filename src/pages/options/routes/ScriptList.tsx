@@ -240,7 +240,7 @@ function ScriptList() {
     }
   };
 
-  // 处理拖拽排序
+  // Handle drag and drop sorting
   const sensors = useSensors(
     useSensor(PointerSensor),
     useSensor(KeyboardSensor, {
@@ -260,7 +260,7 @@ function ScriptList() {
   useEffect(() => {
     dispatch(fetchScriptList()).then((action) => {
       if (fetchScriptList.fulfilled.match(action)) {
-        // 在脚本列表加载完成后，加载favicon
+        // After the script list is loaded, load the favicon
         loadScriptFavicons(action.payload);
       }
     });
@@ -463,13 +463,13 @@ function ScriptList() {
               });
             };
             if (item.type === SCRIPT_TYPE_NORMAL) {
-              // 处理站点icon
+              // Handle site icons
               return (
                 <>
                   <Avatar.Group size={20}>
                     {item.favorite &&
-                      // 排序并且只显示前4个
-                      // 排序将有icon的放在前面
+                      // Sort and display only the first 4
+                      // Sort and put the ones with icons in front
                       [...item.favorite]
                         .sort((a, b) => {
                           if (a.icon && !b.icon) return -1;
@@ -749,7 +749,7 @@ function ScriptList() {
 
   const [newColumns, setNewColumns] = useState<ColumnProps[]>([]);
 
-  // 设置列和判断是否打开用户配置
+  // Set columns and determine whether to open user configuration
   useEffect(() => {
     if (openUserConfig) {
       const dao = new ScriptDAO();
@@ -944,19 +944,19 @@ function ScriptList() {
                           }
                           break;
                         case "pin_to_top": {
-                          // 将选中的脚本置顶
+                          // Pin the selected script to the top
                           l = select.length;
                           if (l > 0) {
-                            // 获取当前所有脚本列表
+                            // Get the current list of all scripts
                             const currentScripts = store.getState().script.scripts;
-                            // 将选中的脚本依次置顶（从后往前，保持选中脚本之间的相对顺序）
+                            // Pin the selected scripts to the top in order (from back to front, keeping the relative order of the selected scripts)
                             for (let i = l - 1; i >= 0; i--) {
                               const script = select[i];
-                              // 找到脚本当前的位置
+                              // Find the current position of the script
                               const scriptIndex = currentScripts.findIndex((s) => s.uuid === script.uuid);
                               if (scriptIndex > 0) {
-                                // 如果不是已经在最顶部
-                                // 将脚本置顶（移动到第一个位置）
+                                // If it is not already at the top
+                                // Pin the script to the top (move to the first position)
                                 dispatch(sortScript({ active: script.uuid, over: currentScripts[0].uuid }));
                               }
                             }
@@ -967,7 +967,7 @@ function ScriptList() {
                           }
                           break;
                         }
-                        // 批量检查更新
+                        // Batch check for updates
                         case "check_update":
                           if (confirm(t("list.confirm_update")!)) {
                             select.forEach((item, index, array) => {
@@ -982,14 +982,14 @@ function ScriptList() {
                                 .requestCheckUpdate(item.uuid)
                                 .then((res) => {
                                   if (res) {
-                                    // 需要更新
+                                    // Need to update
                                     Message.warning({
                                       id: "checkupdate",
                                       content: `${i18nName(item)} ${t("new_version_available")}`,
                                     });
                                   }
                                   if (index === array.length - 1) {
-                                    // 当前元素是最后一个
+                                    // The current element is the last one
                                     Message.success({
                                       id: "checkupdateEnd",
                                       content: t("checked_for_all_selected"),

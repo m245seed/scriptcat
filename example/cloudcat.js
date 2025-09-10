@@ -2,7 +2,7 @@
 // @name         cloudscript
 // @namespace    https://bbs.tampermonkey.net.cn/
 // @version      0.1.0
-// @description  可以导出成nodejs可执行的包,在云端执行
+// @description  Can be exported as a nodejs executable package and executed in the cloud
 // @author       You
 // @crontab      * * once * *
 // @cloudCat

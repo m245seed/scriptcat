@@ -2,7 +2,7 @@
 // @name         userconfig
 // @namespace    https://bbs.tampermonkey.net.cn/
 // @version      0.1.0
-// @description  会在页面上显示用户配置,可以可视化的进行配置
+// @description  Displays user configuration on the page, which can be configured visually
 // @author       You
 // @background
 // @grant        GM_getValue
@@ -11,73 +11,73 @@
 
 /* ==UserConfig==
 group1:
-  configA:                                # 键值为group.config,例如本键为:group1.configA
-    title: 配置A                          # 配置的标题
-    description: 这是一个文本类型的配置     # 配置的描述内容
-    type: text                            # 选项类型,如果不填写会根据数据自动识别
-    default: 默认值                       # 配置的默认值
-    min: 2                                # 文本最短2个字符
-    max: 18                               # 文本最长18个字符
-    password: true                        # 设置为密码
+  configA:                                # The key is group.config, for example, this key is: group1.configA
+    title: Config A                       # Configuration title
+    description: This is a text type configuration # Configuration description
+    type: text                            # Option type, if not filled in, it will be automatically identified based on the data
+    default: Default value                # Default value of the configuration
+    min: 2                                # Minimum 2 characters
+    max: 18                               # Maximum 18 characters
+    password: true                        # Set as password
   configB:
-    title: 配置B
-    description: 这是一个选择框的配置
+    title: Config B
+    description: This is a checkbox type configuration
     type: checkbox
     default: true
   configC:
-    title: 配置C
-    description: 这是一个列表选择的配置
+    title: Config C
+    description: This is a list selection configuration
     type: select
     default: 1
     values: [1,2,3,4,5]
   configD:
-    title: 配置D
-    description: 这是一个动态列表选择的配置
+    title: Config D
+    description: This is a dynamic list selection configuration
     type: select
-    bind: $cookies                       # 动态显示绑定的values,值是以$开头的key,value需要是一个数组
+    bind: $cookies                       # Dynamically display the bound values, the value is a key starting with $, and the value needs to be an array
   configE:
-    title: 配置E
-    description: 这是一个多选列表的配置
+    title: Config E
+    description: This is a multiple selection list configuration
     type: mult-select
     default: [1]
     values: [1,2,3,4,5]
   configF:
-    title: 配置F
-    description: 这是一个动态多选列表的配置
+    title: Config F
+    description: This is a dynamic multiple selection list configuration
     type: mult-select
     bind: $cookies
   configG:
-    title: 配置G
-    description: 这是一个数字的配置
+    title: Config G
+    description: This is a number type configuration
     type: number
     default: 11
-    min: 10  # 最小值
-    max: 16  # 最大值
-    unit: 分 # 表示单位
+    min: 10  # Minimum value
+    max: 16  # Maximum value
+    unit: min # Represents the unit
   configH:
-    title: 配置H
-    description: 这是一个长文本类型的配置
+    title: Config H
+    description: This is a long text type configuration
     type: textarea
-    default: 默认值
+    default: Default value
     rows: 6
   configI:
-    title: 开关
-    description: 这是一个开关类型的配置
+    title: Switch
+    description: This is a switch type configuration
     type: switch
     default: true
 ---
 group2:
   configX:
-    title: 配置A
-    description: 这是一个文本类型的配置
-    default: 默认值
+    title: Config A
+    description: This is a text type configuration
+    default: Default value
  ==/UserConfig== */
 
-// 通过GM_info新方法获取UserConfig对象
+// Get the UserConfig object through the new GM_info method
 const rawUserConfig = GM_info.userConfig;
-// 定义一个对象暂存读取到的UserConfig值
+// Define an object to temporarily store the read UserConfig value
 const userConfig = {};
-// 解构遍历读取UserConfig并赋缺省值
+// Destructure and traverse to read UserConfig and assign default values
 for (const [mainKey, configs] of Object.entries(rawUserConfig)) {
   for (const [subKey, { default: defaultValue }] of Object.entries(configs)) {
     userConfig[`${mainKey}.${subKey}`] = GM_getValue(`${mainKey}.${subKey}`, defaultValue);
@@ -85,13 +85,13 @@ for (const [mainKey, configs] of Object.entries(rawUserConfig)) {
 }
 
 setInterval(() => {
-  // 传统方法读取UserConfig，每个缺省值需要单独静态声明，修改UserConfig缺省值后代码也需要手动修改
-  console.log(GM_getValue("group1.configA", "默认值"));
+  // Traditional method to read UserConfig, each default value needs to be declared separately and statically, and the code needs to be manually modified after modifying the UserConfig default value
+  console.log(GM_getValue("group1.configA", "Default value"));
   console.log(GM_getValue("group1.configG", 11));
-  // GM_info新方法读取UserConfig，可直接关联读取缺省值，无需额外修改
+  // The new GM_info method reads UserConfig, which can be directly associated with reading default values without additional modification
   console.log(userConfig["group1.configA"]);
   console.log(userConfig["group1.configG"]);
 }, 5000)
 
-// 打开用户配置
+// Open user configuration
 CAT_userConfig();

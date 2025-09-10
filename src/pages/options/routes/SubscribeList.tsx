@@ -8,7 +8,7 @@ import { IconSearch, IconUserAdd } from "@arco-design/web-react/icon";
 import type { RefInputType } from "@arco-design/web-react/es/Input/interface";
 import { semTime } from "@App/pkg/utils/dayjs";
 import { RiDeleteBin5Fill } from "react-icons/ri";
-import { useTranslation } from "react-i18next"; // 添加了 react-i18next 的引用
+import { useTranslation } from "react-i18next"; // Added reference to react-i18next
 import { subscribeClient } from "@App/pages/store/features/script";
 
 type ListType = Subscribe & { loading?: boolean };
@@ -16,7 +16,7 @@ type ListType = Subscribe & { loading?: boolean };
 function SubscribeList() {
   const [list, setList] = useState<ListType[]>([]);
   const inputRef = useRef<RefInputType>(null);
-  const { t } = useTranslation(); // 使用 useTranslation hook
+  const { t } = useTranslation(); // Use the useTranslation hook
 
   const setListEntry = async (index: number, obj: any) => {
     setList((prev) =>

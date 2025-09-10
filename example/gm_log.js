@@ -2,7 +2,7 @@
 // @name         gm log
 // @namespace    https://bbs.tampermonkey.net.cn/
 // @version      0.1.0
-// @description  日志功能,为你的脚本加上丰富的日志吧,支持日志分级与日志标签
+// @description  Logging function, add rich logs to your script, support log levels and log tags
 // @author       You
 // @match        https://bbs.tampermonkey.net.cn/
 // @grant GM_log

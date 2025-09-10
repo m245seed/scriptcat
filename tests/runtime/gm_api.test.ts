@@ -69,7 +69,7 @@ describe("GM xmlHttpRequest", () => {
             return request.respond(
               200,
               { "Content-Type": "text/html" },
-              // mock 一个blob对象
+              // mock a blob object
               {
                 text: () => Promise.resolve("form"),
               }
@@ -95,7 +95,7 @@ describe("GM xmlHttpRequest", () => {
     });
   });
 
-  // xml原版是没有responseText的,但是tampermonkey有,恶心的兼容性
+  // The original xml version does not have responseText, but tampermonkey does, which is a disgusting compatibility
   it("json", async () => {
     await new Promise<void>((resolve) => {
       gmApi.GM_xmlhttpRequest({

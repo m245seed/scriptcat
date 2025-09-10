@@ -40,6 +40,7 @@ function Setting() {
   const [scriptMenuDisplayType, setScriptMenuDisplayType] = useState<"no_browser" | "all">("all");
   const languageList: { key: string; title: string }[] = [];
   const { t } = useTranslation();
+
   for (const key of Object.keys(i18n.store.data)) {
     if (key === "ach-UG") {
       continue;
@@ -112,13 +113,11 @@ function Setting() {
         }
       );
     };
-
     loadConfigs();
   }, []);
 
   return (
     <Space className="setting w-full h-full overflow-auto relative" direction="vertical">
-      {/* 基本设置 */}
       <Card title={t("general")} bordered={false}>
         <div className="flex items-center justify-between min-h-10">
           <div className="flex items-center gap-4 flex-1">
@@ -146,8 +145,6 @@ function Setting() {
           <span className="text-xs ml-6 flex-shrink-0">{t("select_interface_language")}</span>
         </div>
       </Card>
-
-      {/* 脚本同步 */}
       <Card className="sync" title={t("script_sync")} bordered={false}>
         <Space direction="vertical" className={"w-full"}>
           <Space direction="horizontal" className={"w-full"}>
@@ -168,6 +165,7 @@ function Setting() {
               {t("sync_status")}
             </Checkbox>
           </Space>
+
           <FileSystemParams
             preNode={
               <Checkbox
@@ -222,11 +220,8 @@ function Setting() {
           />
         </Space>
       </Card>
-
-      {/* 界面外观 */}
       <Card title={t("interface_settings")} bordered={false}>
         <Space direction="vertical" size={16} className="w-full">
-          {/* 扩展图标徽标 */}
           <div>
             <div className="text-sm font-medium mb-3">{t("extension_icon_badge")}</div>
             <Space direction="vertical" size={12} className="w-full">
@@ -284,8 +279,6 @@ function Setting() {
               </div>
             </Space>
           </div>
-
-          {/* 脚本菜单 */}
           <div>
             <div className="text-sm font-medium mb-3">{t("script_menu")}</div>
             <Space direction="vertical" size={12} className={"w-full"}>
@@ -324,8 +317,6 @@ function Setting() {
           </div>
         </Space>
       </Card>
-
-      {/* 脚本更新设置 */}
       <Card title={t("update")} bordered={false}>
         <Space direction="vertical" size={20} className="w-full">
           <div className="flex items-center justify-between min-h-9">
@@ -349,7 +340,6 @@ function Setting() {
             </div>
             <span className="text-xs ml-6 flex-shrink-0">{t("script_auto_update_frequency")}</span>
           </div>
-
           <div className="flex items-start justify-between">
             <div className="flex flex-col gap-3 flex-1">
               <span className="font-medium mb-1">{t("update_options")}</span>
@@ -379,7 +369,6 @@ function Setting() {
         </Space>
       </Card>
       <GMApiSetting />
-      {/* 安全设置 */}
       <Card title={t("security")} bordered={false}>
         <div>
           <div className="flex items-start justify-between mb-3">
@@ -397,7 +386,6 @@ function Setting() {
               setBlacklist(v);
             }}
             onBlur={(v) => {
-              // 校验黑名单格式
               const val = v.target.value;
               const blacklist = obtainBlackList(val);
               const ret = blackListSelfCheck(blacklist);
@@ -410,7 +398,6 @@ function Setting() {
           />
         </div>
       </Card>
-      {/* 开发工具 */}
       <Card title={t("development_tools")} bordered={false}>
         <Space direction="vertical" size={20} className={"w-full"}>
           <div className="flex items-center justify-between min-h-9">
@@ -475,6 +462,7 @@ function Setting() {
               />
             </div>
           )}
+
           <div>
             <div className="flex items-start justify-between mb-3">
               <span className="font-medium min-w-20">{t("editor_config")}</span>

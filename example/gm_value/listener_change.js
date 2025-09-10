@@ -2,7 +2,7 @@
 // @name         gm value listener change
 // @namespace    https://bbs.tampermonkey.net.cn/
 // @version      0.1.0
-// @description  监听脚本数据变更
+// @description  Listen for script data changes
 // @author       You
 // @match        https://bbs.tampermonkey.net.cn/
 // @run-at       document-start

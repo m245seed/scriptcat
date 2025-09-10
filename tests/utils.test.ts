@@ -6,7 +6,7 @@ import type { Script, ScriptRunResource } from "@App/app/repo/scripts";
 import { ScriptDAO } from "@App/app/repo/scripts";
 import GMApi from "@App/app/service/content/gm_api";
 
-describe("测试GMApi环境", async () => {
+describe("Test GMApi environment", async () => {
   const msg = initTestGMApi();
   const script: Script = {
     uuid: randomUUID(),

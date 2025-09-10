@@ -64,7 +64,7 @@ export type ScriptLoading = Script & {
     website?: string;
     icon?: string;
   }[];
-  code?: string; // 用于搜索的脚本代码
+  code?: string; // Script code for search
 };
 
 const updateScript = (scripts: ScriptLoading[], uuid: string, update: (s: ScriptLoading) => void) => {
@@ -85,7 +85,7 @@ export const scriptSlice = createAppSlice({
       if (script) {
         Object.assign(script, action.payload);
       } else {
-        // 放到第一
+        // Put it first
         state.scripts.splice(0, 0, action.payload);
       }
     },
@@ -151,7 +151,7 @@ export const scriptSlice = createAppSlice({
       .addCase(fetchScriptList.fulfilled, (state, action) => {
         state.scripts = action.payload;
       })
-      // 处理enableScript
+      // Handle enableScript
       .addCase(requestEnableScript.fulfilled, (state, action) => {
         updateScript(state.scripts, action.meta.arg.uuid, (script) => {
           script.enableLoading = false;
@@ -161,14 +161,14 @@ export const scriptSlice = createAppSlice({
       .addCase(requestEnableScript.pending, (state, action) =>
         updateScript(state.scripts, action.meta.arg.uuid, (s) => (s.enableLoading = true))
       )
-      // 处理deleteScript
+      // Handle deleteScript
       .addCase(requestDeleteScript.fulfilled, (state, action) => {
         state.scripts = state.scripts.filter((s) => s.uuid !== action.meta.arg);
       })
       .addCase(requestDeleteScript.pending, (state, action) =>
         updateScript(state.scripts, action.meta.arg, (s) => (s.actionLoading = true))
       )
-      // 处理runScript和stopScript
+      // Handle runScript and stopScript
       .addCase(requestRunScript.pending, (state, action) =>
         updateScript(state.scripts, action.meta.arg, (s) => (s.actionLoading = true))
       )

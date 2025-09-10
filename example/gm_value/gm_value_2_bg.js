@@ -1,8 +1,8 @@
 // ==UserScript==
-// @name         gm value storage 读取与监听方 - 后台脚本
+// @name         gm value storage reader and listener - background script
 // @namespace    https://bbs.tampermonkey.net.cn/
 // @version      0.1.0
-// @description  多个脚本之间共享数据 读取与监听方 - 后台脚本
+// @description  Share data between multiple scripts, reader and listener - background script
 // @author       You
 // @run-at document-start
 // @grant GM_getValue
@@ -22,6 +22,6 @@ return new Promise((resolve) => {
     console.log("test_set: ", GM_getValue("test_set"));
     console.log("value list:", GM_listValues());
   }, 2000);
-  // 永不返回resolve表示永不结束
+  // Never returning resolve means never ending
   // resolve()
 });
